@@ -12,23 +12,24 @@ class PhotoFilterViewController: UIViewController {
 	
     var originalImage: UIImage? {
         didSet {
-            guard let originalImage = originalImage else { return }
+            guard let originalImage = originalImage else { return } // use Alert before crashing/returning
 
             var scaledSize = imageView.bounds.size
             // you can also make it so that when you start interaction it
             // lowers the resolution so that it's quicker and smoother
-            // Then when you let up on the slider the res is higher so that it saves at the higher res scale
-            let scale: CGFloat = 1 //UIScreen.main.scale
+            // Then when you let up on the slider the res is higher
+            // so that it saves at the higher res scale
+            let scale: CGFloat = UIScreen.main.scale
             scaledSize = CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
             
-            let scaledUIImage = originalImage.imageByScaling(toSize: scaledSize)
-            scaledImage = scaledUIImage
+            guard let scaledUIImage = originalImage.imageByScaling(toSize: scaledSize) else { return } // use Alert
+            scaledImage = CIImage(image: scaledUIImage)
         }
     }
 
-    var scaledImage: UIImage? {
+    var scaledImage: CIImage? {
         didSet {
-            scaledImage = originalImage
+            updateImage()
         }
     }
     private let context = CIContext()
@@ -36,8 +37,8 @@ class PhotoFilterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        originalImage = imageView.image
-        let filter = CIFilter.gaussianBlur()
+//        originalImage = imageView.image
+//        let filter = CIFilter.gaussianBlur()
         print(filter.attributes)
 	}
 	
@@ -62,17 +63,15 @@ class PhotoFilterViewController: UIViewController {
         }
     }
 
-    private func image(byFiltering image: UIImage) -> UIImage {
-
-        let inputImage = CIImage(image: image)
+    private func image(byFiltering inputImage: CIImage) -> UIImage {
 
         filter.inputImage = inputImage
         filter.saturation = saturationSlider.value
         filter.brightness = brightnessSlider.value
         filter.contrast = contrastSlider.value
 
-        guard let outputImage = filter.outputImage else { return image }
-        guard let renderedImage = context.createCGImage(outputImage, from: outputImage.extent) else { return image }
+        guard let outputImage = filter.outputImage else { return originalImage! }
+        guard let renderedImage = context.createCGImage(outputImage, from: outputImage.extent) else { return originalImage! }
 
         return UIImage(cgImage: renderedImage)
     }
