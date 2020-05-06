@@ -12,10 +12,25 @@ class PhotoFilterViewController: UIViewController {
 	
     var originalImage: UIImage? {
         didSet {
-            updateImage()
+            guard let originalImage = originalImage else { return }
+
+            var scaledSize = imageView.bounds.size
+            // you can also make it so that when you start interaction it
+            // lowers the resolution so that it's quicker and smoother
+            // Then when you let up on the slider the res is higher so that it saves at the higher res scale
+            let scale: CGFloat = 1 //UIScreen.main.scale
+            scaledSize = CGSize(width: scaledSize.width * scale, height: scaledSize.height * scale)
+            
+            let scaledUIImage = originalImage.imageByScaling(toSize: scaledSize)
+            scaledImage = scaledUIImage
         }
     }
 
+    var scaledImage: UIImage? {
+        didSet {
+            scaledImage = originalImage
+        }
+    }
     private let context = CIContext()
     private let filter = CIFilter.colorControls()
 
@@ -40,8 +55,8 @@ class PhotoFilterViewController: UIViewController {
     }
 
     private func updateImage() {
-        if let originalImage = originalImage {
-            imageView.image = image(byFiltering: originalImage)
+        if let scaledImage = scaledImage {
+            imageView.image = image(byFiltering: scaledImage)
         } else {
             imageView.image = nil
         }
