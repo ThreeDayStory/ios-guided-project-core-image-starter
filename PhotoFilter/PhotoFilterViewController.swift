@@ -39,9 +39,9 @@ class PhotoFilterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//        originalImage = imageView.image
+        originalImage = imageView.image
 //        let filter = CIFilter.gaussianBlur()
-        print(colorControlsFilter.attributes)
+//        print(colorControlsFilter.attributes)
 	}
 	
     private func presentImagePickerController() {
@@ -71,11 +71,12 @@ class PhotoFilterViewController: UIViewController {
         colorControlsFilter.saturation = saturationSlider.value
         colorControlsFilter.brightness = brightnessSlider.value
         colorControlsFilter.contrast = contrastSlider.value
-        blurFilter.inputImage = colorControlsFilter.outputImage
+
+        blurFilter.inputImage = colorControlsFilter.outputImage?.clampedToExtent()
         blurFilter.radius = blurSlider.value
 
         guard let outputImage = blurFilter.outputImage else { return originalImage! }
-        guard let renderedImage = context.createCGImage(outputImage, from: outputImage.extent) else { return originalImage! }
+        guard let renderedImage = context.createCGImage(inputImage, from: outputImage.extent) else { return originalImage! }
 
         return UIImage(cgImage: renderedImage)
     }

@@ -82,20 +82,19 @@
                                                             </slider>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xga-tt-xR7" userLabel="Saturation Stack View">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="43O-GF-uP7" userLabel="Contrast Stack View">
                                                         <rect key="frame" x="0.0" y="121.5" width="382" height="20.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Blur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGV-iN-yQy">
-                                                                <rect key="frame" x="0.0" y="0.0" width="82" height="20.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Blur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-WW-X12">
+                                                                <rect key="frame" x="0.0" y="0.0" width="30.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="0ph-an-xG5" userLabel="Saturation Slider">
-                                                                <rect key="frame" x="88" y="0.0" width="296" height="21.5"/>
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="PLV-sa-WwA" userLabel="Contrast Slider">
+                                                                <rect key="frame" x="36.5" y="0.0" width="347.5" height="21.5"/>
                                                                 <connections>
-                                                                    <action selector="blurChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bw8-Ch-RBc"/>
-                                                                    <action selector="saturationChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="xr7-Pb-Txz"/>
+                                                                    <action selector="blurChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kmJ-8k-ZbF"/>
                                                                 </connections>
                                                             </slider>
                                                         </subviews>
@@ -115,7 +114,6 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="0ph-an-xG5" firstAttribute="leading" secondItem="fcb-mt-jU4" secondAttribute="leading" id="SMX-WT-HYY"/>
                                                     <constraint firstItem="zDC-OB-nYX" firstAttribute="leading" secondItem="fcb-mt-jU4" secondAttribute="leading" id="h4h-3O-JLo"/>
                                                 </constraints>
                                             </stackView>
@@ -154,11 +152,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="blurSlider" destination="0ph-an-xG5" id="Xar-6l-wKl"/>
+                        <outlet property="blurSlider" destination="PLV-sa-WwA" id="7Kq-Bf-XyT"/>
                         <outlet property="brightnessSlider" destination="zDC-OB-nYX" id="NIW-M6-yfq"/>
                         <outlet property="contrastSlider" destination="fcb-mt-jU4" id="EST-ev-qrR"/>
                         <outlet property="imageView" destination="WLS-Nm-1BZ" id="kN0-JO-lMa"/>
-                        <outlet property="saturationSlider" destination="0ph-an-xG5" id="V1K-Ep-oLI"/>
+                        <outlet property="saturationSlider" destination="sJO-Jm-OhZ" id="AcS-YN-1wE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
