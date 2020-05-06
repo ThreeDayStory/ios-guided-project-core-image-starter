@@ -85,7 +85,7 @@ class PhotoFilterViewController: UIViewController {
 	}
 	
 	@IBAction func savePhotoButtonPressed(_ sender: UIButton) {
-        guard let originalImage = originalImage,
+        guard let originalImage = originalImage?.flattened,
             let ciImage = CIImage(image: originalImage) else { return }
 
         let processedImage = self.image(byFiltering: ciImage)
