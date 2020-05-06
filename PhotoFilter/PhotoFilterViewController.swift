@@ -10,12 +10,17 @@ class PhotoFilterViewController: UIViewController {
 	@IBOutlet weak var saturationSlider: UISlider!
 	@IBOutlet weak var imageView: UIImageView!
 	
-    var originalImage: UIImage?
+    var originalImage: UIImage? {
+        didSet {
+            updateImage()
+        }
+    }
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        let filter = CIFilter.gaussianBlur()
-        print(filter.attributes)
+        originalImage = imageView.image
+//        let filter = CIFilter.gaussianBlur()
+//        print(filter.attributes)
 	}
 	
     private func presentImagePickerController() {
@@ -29,6 +34,14 @@ class PhotoFilterViewController: UIViewController {
         imagePicker.delegate = self
 
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func updateImage() {
+        if let originalImage = originalImage {
+            imageView.image = originalImage
+        } else {
+            imageView.image = nil
+        }
     }
 
 	// MARK: Actions
